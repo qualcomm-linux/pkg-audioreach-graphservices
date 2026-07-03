@@ -2,10 +2,11 @@ audioreach-graphservices (1.0.0-0qli+staging1~bpo13+1~) UNRELEASED; urgency=medi
 
   * Rebuild for trixie.
 
- -- Agathe Porte <agathe.porte@oss.qualcomm.com>  Fri, 03 Jul 2026 14:04:19 +0200
+ -- Agathe Porte <agathe.porte@oss.qualcomm.com>  Fri, 03 Jul 2026 14:23:04 +0200
 
-audioreach-graphservices (1.0.0-0qli+staging1~) UNRELEASED; urgency=low
+audioreach-graphservices (1.0.0-0qli+staging1) forky; urgency=low
 
+  [ Agathe Porte ]
   * Initial release.
 
- -- Agathe Porte <agathe.porte@oss.qualcomm.com>  Fri, 03 Jul 2026 14:02:17 +0200
+ -- root <root@b1b79b00a990>  Fri, 03 Jul 2026 12:19:31 +0000
