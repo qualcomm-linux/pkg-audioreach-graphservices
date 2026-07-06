@@ -1,8 +1,11 @@
-audioreach-graphservices (1.0.0-0qli+staging2~) UNRELEASED; urgency=medium
+audioreach-graphservices (1.0.0-0qli+staging2) UNRELEASED; urgency=medium
 
-  * Unreleased changes
+  * Enable libdiag support.
+  * Replace dummy diag backend with libdiag.
+  * Add qcom-libdiag and qcom-libdiag-dev build dependencies.
+  * Add qcom-libdiag and qcom-diag-router runtime dependencies.
 
- -- root <root@b8e987829595>  Fri, 03 Jul 2026 12:21:53 +0000
+ -- Sairamreddy Bojja <sbojja@hu-sbojja-hyd.qualcomm.com>  Mon, 06 Jul 2026 16:42:05 +0530
 
 audioreach-graphservices (1.0.0-0qli+staging1) forky; urgency=low
 
