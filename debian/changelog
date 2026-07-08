@@ -1,11 +1,12 @@
-audioreach-graphservices (1.0.0-0qli+staging1~bpo13+2) UNRELEASED; urgency=medium
+audioreach-graphservices (1.0.0-0qli+staging1~bpo13+2) trixie; urgency=medium
 
+  [ Sairamreddy Bojja ]
   * Enable libdiag support.
   * Replace dummy diag backend with libdiag.
   * Add qcom-libdiag and qcom-libdiag-dev build dependencies.
   * Add qcom-libdiag and qcom-diag-router runtime dependencies.
 
- -- Sairamreddy Bojja <sbojja@qti.qualcomm.com>  Mon, 06 Jul 2026 16:45:43 +0530
+ -- root <root@17cd9079c764>  Wed, 08 Jul 2026 10:20:59 +0000
 
 audioreach-graphservices (1.0.0-0qli+staging1~bpo13+1) trixie; urgency=medium
 
