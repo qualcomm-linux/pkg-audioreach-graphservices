@@ -1,8 +1,6 @@
 Source: audioreach-graphservices
 Section: misc
-Priority: optional
 Maintainer: Radhika Garg <radhgarg@qti.qualcomm.com>
-Rules-Requires-Root: no
 Build-Depends: debhelper-compat (= 13),
  libglib2.0-0,
  libglib2.0-dev,
