@@ -1,0 +1,5 @@
+# SPF provides compile-time protocol headers only.  The empty shared object is
+# retained for compatibility with consumers that link against -lar-spfhdrs, so
+# it legitimately has no DT_NEEDED entries.
+# https://github.com/AudioReach/audioreach-graphservices/issues/104
+libar-spfhdrs1: shared-library-lacks-prerequisites [usr/lib/aarch64-linux-gnu/libar-spfhdrs.so.1.0.0]
