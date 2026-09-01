@@ -1,0 +1,3 @@
+usr/include/acdb*.h
+usr/lib/*/libar-acdb.so
+usr/lib/*/pkgconfig/acdb.pc

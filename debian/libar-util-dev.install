@@ -1,0 +1,3 @@
+usr/include/ar_util*.h
+usr/lib/*/libar-util.so
+usr/lib/*/pkgconfig/ar_util.pc

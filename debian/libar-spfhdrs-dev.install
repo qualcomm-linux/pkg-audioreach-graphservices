@@ -1,0 +1,3 @@
+usr/include/spf
+usr/lib/*/libar-spfhdrs.so
+usr/lib/*/pkgconfig/spf.pc

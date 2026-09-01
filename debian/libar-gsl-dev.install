@@ -1,0 +1,3 @@
+usr/include/gsl*.h
+usr/lib/*/libar-gsl.so
+usr/lib/*/pkgconfig/gsl.pc

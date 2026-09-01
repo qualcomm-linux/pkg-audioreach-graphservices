@@ -1,0 +1,3 @@
+usr/include/ar_osal*.h
+usr/lib/*/libar-osal.so
+usr/lib/*/pkgconfig/ar_osal.pc

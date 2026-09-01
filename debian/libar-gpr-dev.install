@@ -1,0 +1,6 @@
+usr/include/ar_guids.h
+usr/include/ar_types.h
+usr/include/gpr*.h
+usr/include/ipc_dl_api.h
+usr/lib/*/libar-gpr.so
+usr/lib/*/pkgconfig/gpr.pc

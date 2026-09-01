@@ -1,0 +1,3 @@
+usr/include/ats.h
+usr/lib/*/libar-ats.so
+usr/lib/*/pkgconfig/ats.pc

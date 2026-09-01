@@ -11,24 +11,202 @@ Homepage: https://github.com/Audioreach/audioreach-graphservices
 Vcs-Git: https://github.com/qualcomm-linux/pkg-audioreach-graphservices -b debian/latest
 Vcs-Browser: https://github.com/qualcomm-linux/pkg-audioreach-graphservices
 
+Package: libar-acdb1
+Architecture: arm64
+Multi-Arch: same
+Section: libs
+Depends: ${misc:Depends}, ${shlibs:Depends}
+Breaks: audioreach-graphservices (<< 1.0.0-0qli+staging2)
+Replaces: audioreach-graphservices (<< 1.0.0-0qli+staging2)
+Description: AudioReach calibration database runtime library
+ This library loads and queries calibration data used by AudioReach audio
+ graphs.
+
+Package: libar-acdb-dev
+Architecture: arm64
+Multi-Arch: same
+Section: libdevel
+Depends: libar-acdb1 (= ${binary:Version}),
+ libar-osal-dev (= ${binary:Version}),
+ ${misc:Depends}
+Breaks: audioreach-graphservices-dev (<< 1.0.0-0qli+staging2)
+Replaces: audioreach-graphservices-dev (<< 1.0.0-0qli+staging2)
+Description: AudioReach calibration database development files
+ This package provides the headers, linker symlink, and pkg-config metadata
+ for the AudioReach calibration database library.
+
+Package: libar-ats1
+Architecture: arm64
+Multi-Arch: same
+Section: libs
+Depends: ${misc:Depends}, ${shlibs:Depends}
+Breaks: audioreach-graphservices (<< 1.0.0-0qli+staging2)
+Replaces: audioreach-graphservices (<< 1.0.0-0qli+staging2)
+Description: AudioReach tuning service runtime library
+ This library provides tuning commands and calibration transport support for
+ AudioReach clients.
+
+Package: libar-ats-dev
+Architecture: arm64
+Multi-Arch: same
+Section: libdevel
+Depends: libar-ats1 (= ${binary:Version}),
+ libar-osal-dev (= ${binary:Version}),
+ ${misc:Depends}
+Breaks: audioreach-graphservices-dev (<< 1.0.0-0qli+staging2)
+Replaces: audioreach-graphservices-dev (<< 1.0.0-0qli+staging2)
+Description: AudioReach tuning service development files
+ This package provides the header, linker symlink, and pkg-config metadata
+ for the AudioReach tuning service library.
+
+Package: libar-gpr1
+Architecture: arm64
+Multi-Arch: same
+Section: libs
+Depends: ${misc:Depends}, ${shlibs:Depends}
+Breaks: audioreach-graphservices (<< 1.0.0-0qli+staging2)
+Replaces: audioreach-graphservices (<< 1.0.0-0qli+staging2)
+Description: AudioReach generic packet router runtime library
+ This library implements packet routing between AudioReach processing
+ domains.
+
+Package: libar-gpr-dev
+Architecture: arm64
+Multi-Arch: same
+Section: libdevel
+Depends: libar-gpr1 (= ${binary:Version}),
+ libar-osal-dev (= ${binary:Version}),
+ ${misc:Depends}
+Breaks: audioreach-graphservices-dev (<< 1.0.0-0qli+staging2)
+Replaces: audioreach-graphservices-dev (<< 1.0.0-0qli+staging2)
+Description: AudioReach generic packet router development files
+ This package provides the headers, linker symlink, and pkg-config metadata
+ for the AudioReach generic packet router library.
+
+Package: libar-gsl1
+Architecture: arm64
+Multi-Arch: same
+Section: libs
+Depends: ${misc:Depends}, ${shlibs:Depends}
+Breaks: audioreach-graphservices (<< 1.0.0-0qli+staging2)
+Replaces: audioreach-graphservices (<< 1.0.0-0qli+staging2)
+Description: AudioReach graph service runtime library
+ This library manages AudioReach graph lifecycles, resources, and data paths.
+
+Package: libar-gsl-dev
+Architecture: arm64
+Multi-Arch: same
+Section: libdevel
+Depends: libar-gsl1 (= ${binary:Version}),
+ libar-acdb-dev (= ${binary:Version}),
+ libar-gpr-dev (= ${binary:Version}),
+ libar-osal-dev (= ${binary:Version}),
+ libar-spfhdrs-dev (= ${binary:Version}),
+ libar-util-dev (= ${binary:Version}),
+ ${misc:Depends}
+Breaks: audioreach-graphservices-dev (<< 1.0.0-0qli+staging2)
+Replaces: audioreach-graphservices-dev (<< 1.0.0-0qli+staging2)
+Description: AudioReach graph service development files
+ This package provides the headers, linker symlink, and pkg-config metadata
+ for the AudioReach graph service library.
+
+Package: libar-osal1
+Architecture: arm64
+Multi-Arch: same
+Section: libs
+Depends: ${misc:Depends}, ${shlibs:Depends}, qcom-diag-router
+Breaks: audioreach-graphservices (<< 1.0.0-0qli+staging2)
+Replaces: audioreach-graphservices (<< 1.0.0-0qli+staging2)
+Description: AudioReach operating-system abstraction runtime library
+ This package provides the AudioReach operating-system abstraction shared
+ library.
+
+Package: libar-osal-dev
+Architecture: arm64
+Multi-Arch: same
+Section: libdevel
+Depends: libar-osal1 (= ${binary:Version}), ${misc:Depends}
+Breaks: audioreach-graphservices-dev (<< 1.0.0-0qli+staging2)
+Replaces: audioreach-graphservices-dev (<< 1.0.0-0qli+staging2)
+Description: AudioReach operating-system abstraction development files
+ This package provides the headers, linker symlink, and pkg-config metadata
+ for the AudioReach operating-system abstraction library.
+
+Package: libar-spfhdrs1
+Architecture: arm64
+Multi-Arch: same
+Section: libs
+Depends: ${misc:Depends}
+Breaks: audioreach-graphservices (<< 1.0.0-0qli+staging2)
+Replaces: audioreach-graphservices (<< 1.0.0-0qli+staging2)
+Description: AudioReach service framework header compatibility library
+ This package provides the AudioReach service framework header compatibility
+ shared library.
+
+Package: libar-spfhdrs-dev
+Architecture: arm64
+Multi-Arch: same
+Section: libdevel
+Depends: libar-spfhdrs1 (= ${binary:Version}),
+ libar-osal-dev (= ${binary:Version}),
+ ${misc:Depends}
+Breaks: audioreach-graphservices-dev (<< 1.0.0-0qli+staging2)
+Replaces: audioreach-graphservices-dev (<< 1.0.0-0qli+staging2)
+Description: AudioReach service framework header development files
+ This package provides the service framework headers, linker symlink, and
+ pkg-config metadata.
+
+Package: libar-util1
+Architecture: arm64
+Multi-Arch: same
+Section: libs
+Depends: ${misc:Depends}, ${shlibs:Depends}
+Breaks: audioreach-graphservices (<< 1.0.0-0qli+staging2)
+Replaces: audioreach-graphservices (<< 1.0.0-0qli+staging2)
+Description: AudioReach utility runtime library
+ This library provides common logging, list, and error-detection helpers used
+ by AudioReach components.
+
+Package: libar-util-dev
+Architecture: arm64
+Multi-Arch: same
+Section: libdevel
+Depends: libar-util1 (= ${binary:Version}),
+ libar-osal-dev (= ${binary:Version}),
+ ${misc:Depends}
+Breaks: audioreach-graphservices-dev (<< 1.0.0-0qli+staging2)
+Replaces: audioreach-graphservices-dev (<< 1.0.0-0qli+staging2)
+Description: AudioReach utility development files
+ This package provides the headers, linker symlink, and pkg-config metadata
+ for the AudioReach utility library.
+
 Package: audioreach-graphservices
 Architecture: arm64
-Section: libs
-Depends: ${misc:Depends}, ${shlibs:Depends}, qcom-diag-router, qcom-libdiag
-Description: AudioReach graph service libraries
- Provides cross-platform libraries for managing audio graphs
- in the AudioReach framework, including setup, control,
- data exchange, and calibration handling.
+Section: oldlibs
+Depends: libar-acdb1 (= ${binary:Version}),
+ libar-ats1 (= ${binary:Version}),
+ libar-gpr1 (= ${binary:Version}),
+ libar-gsl1 (= ${binary:Version}),
+ libar-osal1 (= ${binary:Version}),
+ libar-spfhdrs1 (= ${binary:Version}),
+ libar-util1 (= ${binary:Version}),
+ ${misc:Depends}
+Description: transitional package for AudioReach runtime libraries
+ This package pulls in the split AudioReach runtime libraries. It can safely
+ be removed once all reverse dependencies use the individual library packages.
 
 Package: audioreach-graphservices-dev
 Architecture: arm64
-Description: AudioReach graphservices - development files
- AudioReach graph service libraries
- Provides cross-platform libraries for managing audio graphs
- in the AudioReach framework, including setup, control,
- data exchange, and calibration handling.
- .
- This package contains library headers for the shared libraries shipped in the
- audioreach-graphservices  package.
-Section: libdevel
-Depends: audioreach-graphservices (= ${binary:Version}), ${misc:Depends}
+Section: oldlibs
+Depends: libar-acdb-dev (= ${binary:Version}),
+ libar-ats-dev (= ${binary:Version}),
+ libar-gpr-dev (= ${binary:Version}),
+ libar-gsl-dev (= ${binary:Version}),
+ libar-osal-dev (= ${binary:Version}),
+ libar-spfhdrs-dev (= ${binary:Version}),
+ libar-util-dev (= ${binary:Version}),
+ ${misc:Depends}
+Description: transitional package for AudioReach development files
+ This package pulls in the split AudioReach development packages. It can safely
+ be removed once all reverse dependencies use the individual development
+ packages.
