@@ -10,7 +10,7 @@ Build-Depends: debhelper-compat (= 13),
  audioreach-linux-dev
 Standards-Version: 4.6.2
 Homepage: https://github.com/Audioreach/audioreach-graphservices
-Vcs-Git: https://github.com/qualcomm-linux/pkg-audioreach-graphservices -b debian/latest
+Vcs-Git: https://github.com/qualcomm-linux/pkg-audioreach-graphservices
 Vcs-Browser: https://github.com/qualcomm-linux/pkg-audioreach-graphservices
 
 Package: libar-acdb1
