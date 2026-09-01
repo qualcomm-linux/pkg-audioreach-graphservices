@@ -1,6 +1,8 @@
 Source: audioreach-graphservices
 Section: misc
 Maintainer: Radhika Garg <radhgarg@qti.qualcomm.com>
+Uploaders:
+ Lukas Märdian <lukas.maerdian@oss.qualcomm.com>
 Build-Depends: debhelper-compat (= 13),
  libglib2.0-dev,
  pkgconf,
