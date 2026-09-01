@@ -1,1 +1,2 @@
 fix-shared-library-linkage.patch
+fix-ats-pc-include-path.patch
