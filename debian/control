@@ -2,10 +2,8 @@ Source: audioreach-graphservices
 Section: misc
 Maintainer: Radhika Garg <radhgarg@qti.qualcomm.com>
 Build-Depends: debhelper-compat (= 13),
- libglib2.0-0,
  libglib2.0-dev,
- pkg-config,
- qcom-libdiag,
+ pkgconf,
  qcom-libdiag-dev,
  audioreach-kernel-dev
 Standards-Version: 4.6.2
@@ -16,7 +14,7 @@ Vcs-Browser: https://github.com/qualcomm-linux/pkg-audioreach-graphservices
 Package: audioreach-graphservices
 Architecture: arm64
 Section: libs
-Depends: ${misc:Depends}, qcom-diag-router, qcom-libdiag
+Depends: ${misc:Depends}, ${shlibs:Depends}, qcom-diag-router, qcom-libdiag
 Description: AudioReach graph service libraries
  Provides cross-platform libraries for managing audio graphs
  in the AudioReach framework, including setup, control,
