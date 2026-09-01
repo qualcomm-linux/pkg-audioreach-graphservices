@@ -41,6 +41,7 @@ Architecture: arm64
 Multi-Arch: same
 Section: libs
 Depends: ${misc:Depends}, ${shlibs:Depends}
+Recommends: qcom-diag-router
 Breaks: audioreach-graphservices (<< 1.0.0-0qli+staging2)
 Replaces: audioreach-graphservices (<< 1.0.0-0qli+staging2)
 Description: AudioReach tuning service runtime library
@@ -120,7 +121,8 @@ Package: libar-osal1
 Architecture: arm64
 Multi-Arch: same
 Section: libs
-Depends: ${misc:Depends}, ${shlibs:Depends}, qcom-diag-router
+Depends: ${misc:Depends}, ${shlibs:Depends}
+Suggests: qcom-diag-router
 Breaks: audioreach-graphservices (<< 1.0.0-0qli+staging2)
 Replaces: audioreach-graphservices (<< 1.0.0-0qli+staging2)
 Description: AudioReach operating-system abstraction runtime library
