@@ -90,7 +90,15 @@ Depends: ${misc:Depends}, ${shlibs:Depends}
 Breaks: audioreach-graphservices (<< 1.0.0-0qli+staging2)
 Replaces: audioreach-graphservices (<< 1.0.0-0qli+staging2)
 Description: AudioReach graph service runtime library
- This library manages AudioReach graph lifecycles, resources, and data paths.
+ The graph service layer (GSL) is the interface through which clients drive
+ AudioReach audio use cases. It loads audio processing graphs onto the DSP,
+ each identified by a key vector, applies calibration data from the
+ calibration database, and carries audio samples between the client and the
+ loaded graph.
+ .
+ GSL also delivers asynchronous notifications to its clients, including
+ subsystem restart events that report which graph handles a client has to
+ close and reopen.
 
 Package: libar-gsl-dev
 Architecture: arm64
