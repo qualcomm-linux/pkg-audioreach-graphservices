@@ -18,6 +18,10 @@ Files: gsl/inc/gsl_cshm_mgr.h
 Copyright: Qualcomm Technologies, Inc. and/or its subsidiaries
 License: BSD-3-Clause-Clear
 
+Files: debian/*
+Copyright: Qualcomm Technologies, Inc. and/or its subsidiaries
+License: BSD-3-Clause
+
 License: Apache-2.0
  On Debian systems, the complete text of the Apache License, Version 2.0
  can be found in "/usr/share/common-licenses/Apache-2.0".
