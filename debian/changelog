@@ -1,15 +1,16 @@
 audioreach-graphservices (1.0.0-0qli+staging3~) UNRELEASED; urgency=medium
 
-  * d/watch: Add Matching-Pattern.
   * d/copyright: Add stanza for debian/*
   * d/control: Cleanup invalid branch on Vcs-Git.
   * d/control: Drop Multi-Arch:same from -dev packages, as headers are not
-    not guaranteed to be identical across arches.
+    guaranteed to be identical across arches.
   * d/tests: Add initial autopkgtests.
   * Fix bogus include path in ats.pc
     - d/p/fix-ats-pc-include-path.patch
+  * d/control: Expand the libar-gsl1 extended description.
+  * d/control: Move qcom-diag-router dependency to a more sensible place.
 
- -- Lukas Märdian <lukas.maerdian@oss.qualcomm.com>  Tue, 01 Sep 2026 16:18:22 +0200
+ -- Lukas Märdian <lukas.maerdian@oss.qualcomm.com>  Tue, 01 Sep 2026 16:54:50 +0200
 
 audioreach-graphservices (1.0.0-0qli+staging2) forky; urgency=medium
 
