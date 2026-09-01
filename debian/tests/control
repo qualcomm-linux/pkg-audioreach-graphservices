@@ -1,0 +1,21 @@
+Tests: compile-link
+Depends: libar-acdb-dev,
+ libar-ats-dev,
+ libar-gpr-dev,
+ libar-gsl-dev,
+ libar-osal-dev,
+ libar-spfhdrs-dev,
+ libar-util-dev,
+ build-essential,
+ pkgconf
+
+Tests: shared-libs
+Depends: libar-acdb1,
+ libar-ats1,
+ libar-gpr1,
+ libar-gsl1,
+ libar-osal1,
+ libar-spfhdrs1,
+ libar-util1,
+ binutils
+Restrictions: superficial

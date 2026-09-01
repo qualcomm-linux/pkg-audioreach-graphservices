@@ -1,0 +1,46 @@
+#!/bin/sh
+# Check the runtime library packages: each SONAME is present, has no
+# unresolved dependencies, and can be loaded by the dynamic linker.
+set -e
+
+MULTIARCH=$(dpkg-architecture -qDEB_HOST_MULTIARCH)
+LIBDIR="/usr/lib/$MULTIARCH"
+
+LIBS="libar-acdb libar-ats libar-gpr libar-gsl libar-osal libar-spfhdrs libar-util"
+
+fail=0
+
+for lib in $LIBS; do
+	so="$LIBDIR/$lib.so.1"
+	echo "--- $lib ---"
+
+	if [ ! -e "$so" ]; then
+		echo "FAIL: $so is missing"
+		fail=1
+		continue
+	fi
+
+	# ldd reports "not found" for any DT_NEEDED that cannot be resolved.
+	if ldd "$so" | grep "not found"; then
+		echo "FAIL: $lib has unresolved dependencies"
+		fail=1
+	else
+		echo "PASS: all dependencies resolve"
+	fi
+
+	# Confirm the SONAME matches the package name, which is what makes the
+	# libar-*1 package split meaningful.
+	soname=$(objdump -p "$so" | awk '/SONAME/ { print $2 }')
+	echo "soname: $soname"
+	if [ "$soname" != "$lib.so.1" ]; then
+		echo "FAIL: $lib: unexpected SONAME $soname"
+		fail=1
+	fi
+done
+
+if [ "$fail" -ne 0 ]; then
+	echo "shared library checks FAILED"
+	exit 1
+fi
+
+echo "all shared library checks OK"

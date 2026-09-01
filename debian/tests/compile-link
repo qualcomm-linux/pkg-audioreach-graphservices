@@ -1,0 +1,97 @@
+#!/bin/sh
+# Compile and link a trivial program against each -dev package, using only
+# the flags that pkg-config reports.  This proves the installed headers are
+# self-contained and that the linker symlink in each -dev package resolves.
+set -e
+
+: "${AUTOPKGTEST_TMP:=$(mktemp -d)}"
+cd "$AUTOPKGTEST_TMP"
+
+fail=0
+
+# mod:header:symbol-reference
+# The symbol is only taken as an address, so nothing is executed and no
+# hardware or calibration data is required.
+CASES="
+ar_osal:ar_osal_mutex.h:ar_osal_mutex_create
+ar_util:ar_util_list.h:ar_list_init
+acdb:acdb.h:acdb_init
+gpr:gpr_api.h:gpr_init
+gsl:gsl_intf.h:gsl_init
+ats:ats.h:ats_init
+"
+
+for case in $CASES; do
+	mod=$(echo "$case" | cut -d: -f1)
+	header=$(echo "$case" | cut -d: -f2)
+	symbol=$(echo "$case" | cut -d: -f3)
+
+	echo "--- $mod ($header, $symbol) ---"
+
+	cat > "test-$mod.c" <<EOF
+#include <$header>
+#include <stdio.h>
+
+int main(void)
+{
+	/* Reference the symbol without calling it: this forces the linker to
+	 * resolve it against the shared library. */
+	printf("%p\n", (void *)(&$symbol));
+	return 0;
+}
+EOF
+
+	cflags=$(pkg-config --cflags "$mod")
+	libs=$(pkg-config --libs "$mod")
+
+	# shellcheck disable=SC2086
+	if gcc $cflags -o "test-$mod" "test-$mod.c" $libs; then
+		echo "PASS: $mod compiled and linked"
+	else
+		echo "FAIL: $mod failed to compile or link"
+		fail=1
+		continue
+	fi
+
+	if ./"test-$mod" > /dev/null; then
+		echo "PASS: $mod runs"
+	else
+		echo "FAIL: $mod built but did not run"
+		fail=1
+	fi
+done
+
+# spf ships protocol headers only, so check a representative header parses
+# rather than looking for a symbol in the (empty) library.
+echo "--- spf (apm_api.h) ---"
+cat > test-spf.c <<'EOF'
+#include <apm_api.h>
+
+int main(void)
+{
+	return (int)sizeof(apm_cmd_header_t) > 0 ? 0 : 1;
+}
+EOF
+
+spf_cflags=$(pkg-config --cflags spf)
+spf_libs=$(pkg-config --libs spf)
+# shellcheck disable=SC2086
+if gcc $spf_cflags -o test-spf test-spf.c $spf_libs; then
+	echo "PASS: spf headers compiled and linked"
+	if ./test-spf; then
+		echo "PASS: spf runs"
+	else
+		echo "FAIL: spf built but did not run"
+		fail=1
+	fi
+else
+	echo "FAIL: spf failed to compile or link"
+	fail=1
+fi
+
+if [ "$fail" -ne 0 ]; then
+	echo "compile/link tests FAILED"
+	exit 1
+fi
+
+echo "all compile/link tests OK"
