@@ -7,7 +7,7 @@ Build-Depends: debhelper-compat (= 13),
  libglib2.0-dev,
  pkgconf,
  qcom-libdiag-dev,
- audioreach-kernel-dev
+ audioreach-linux-dev
 Standards-Version: 4.6.2
 Homepage: https://github.com/Audioreach/audioreach-graphservices
 Vcs-Git: https://github.com/qualcomm-linux/pkg-audioreach-graphservices -b debian/latest
