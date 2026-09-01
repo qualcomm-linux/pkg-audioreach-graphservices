@@ -26,7 +26,6 @@ Description: AudioReach calibration database runtime library
 
 Package: libar-acdb-dev
 Architecture: arm64
-Multi-Arch: same
 Section: libdevel
 Depends: libar-acdb1 (= ${binary:Version}),
  libar-osal-dev (= ${binary:Version}),
@@ -50,7 +49,6 @@ Description: AudioReach tuning service runtime library
 
 Package: libar-ats-dev
 Architecture: arm64
-Multi-Arch: same
 Section: libdevel
 Depends: libar-ats1 (= ${binary:Version}),
  libar-osal-dev (= ${binary:Version}),
@@ -74,7 +72,6 @@ Description: AudioReach generic packet router runtime library
 
 Package: libar-gpr-dev
 Architecture: arm64
-Multi-Arch: same
 Section: libdevel
 Depends: libar-gpr1 (= ${binary:Version}),
  libar-osal-dev (= ${binary:Version}),
@@ -97,7 +94,6 @@ Description: AudioReach graph service runtime library
 
 Package: libar-gsl-dev
 Architecture: arm64
-Multi-Arch: same
 Section: libdevel
 Depends: libar-gsl1 (= ${binary:Version}),
  libar-acdb-dev (= ${binary:Version}),
@@ -125,7 +121,6 @@ Description: AudioReach operating-system abstraction runtime library
 
 Package: libar-osal-dev
 Architecture: arm64
-Multi-Arch: same
 Section: libdevel
 Depends: libar-osal1 (= ${binary:Version}), ${misc:Depends}
 Breaks: audioreach-graphservices-dev (<< 1.0.0-0qli+staging2)
@@ -147,7 +142,6 @@ Description: AudioReach service framework header compatibility library
 
 Package: libar-spfhdrs-dev
 Architecture: arm64
-Multi-Arch: same
 Section: libdevel
 Depends: libar-spfhdrs1 (= ${binary:Version}),
  libar-osal-dev (= ${binary:Version}),
@@ -171,7 +165,6 @@ Description: AudioReach utility runtime library
 
 Package: libar-util-dev
 Architecture: arm64
-Multi-Arch: same
 Section: libdevel
 Depends: libar-util1 (= ${binary:Version}),
  libar-osal-dev (= ${binary:Version}),
