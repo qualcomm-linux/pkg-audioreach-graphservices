@@ -1,5 +1,5 @@
 # Monitor upstream releases of the AudioReach kernel drivers.
-# Upstream repository: https://github.com/AudioReach/audioreach-kernel
+# Upstream repository: https://github.com/AudioReach/audioreach-graphservices
 #
 # Tags follow the pattern vX.Y.Z (e.g. v1.0.1, v1.1.0).
 # Vendor-specific tags such as v1.0.0-AU84 are also present; the
