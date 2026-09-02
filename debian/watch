@@ -1,4 +1,4 @@
-# Monitor upstream releases of the AudioReach kernel drivers.
+# Monitor upstream releases of the AudioReach graph services.
 # Upstream repository: https://github.com/AudioReach/audioreach-graphservices
 #
 # Tags follow the pattern vX.Y.Z (e.g. v1.0.1, v1.1.0).
