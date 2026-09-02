@@ -4,7 +4,7 @@ Description: Link shared libraries against their direct dependencies
  the required DT_NEEDED entries and prevents unresolved-symbol warnings from
  dpkg-shlibdeps.
 Author: Lukas Märdian <lukas.maerdian@oss.qualcomm.com>
-Forwarded: no
+Forwarded: https://github.com/AudioReach/audioreach-graphservices/pull/109
 Last-Update: 2026-09-01
 --- a/ar_util/Makefile.am
 +++ b/ar_util/Makefile.am
