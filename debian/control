@@ -6,7 +6,7 @@ Uploaders:
 Build-Depends: debhelper-compat (= 13),
  libglib2.0-dev,
  pkgconf,
- qcom-libdiag-dev,
+ libdiag-dev,
  audioreach-linux-dev
 Standards-Version: 4.6.2
 Homepage: https://github.com/Audioreach/audioreach-graphservices
