@@ -13,6 +13,15 @@ Homepage: https://github.com/Audioreach/audioreach-graphservices
 Vcs-Git: https://github.com/qualcomm-linux/pkg-audioreach-graphservices
 Vcs-Browser: https://github.com/qualcomm-linux/pkg-audioreach-graphservices
 
+Package: audioreach-spf-dev
+Architecture: arm64
+Section: libdevel
+Depends: libar-osal-dev (= ${binary:Version}),
+ ${misc:Depends}
+Description: AudioReach service framework header development files
+ This package provides the service framework headers, and pkg-config
+ pkg-config metadata.
+
 Package: libar-acdb1
 Architecture: arm64
 Multi-Arch: same
@@ -90,11 +99,11 @@ Description: AudioReach graph service runtime library
 Package: libar-gsl-dev
 Architecture: arm64
 Section: libdevel
-Depends: libar-gsl1 (= ${binary:Version}),
+Depends: audioreach-spf-dev (= ${binary:Version}),
+ libar-gsl1 (= ${binary:Version}),
  libar-acdb-dev (= ${binary:Version}),
  libar-gpr-dev (= ${binary:Version}),
  libar-osal-dev (= ${binary:Version}),
- libar-spfhdrs-dev (= ${binary:Version}),
  libar-util-dev (= ${binary:Version}),
  ${misc:Depends}
 Description: AudioReach graph service development files
@@ -118,25 +127,6 @@ Depends: libar-osal1 (= ${binary:Version}), ${misc:Depends}
 Description: AudioReach operating-system abstraction development files
  This package provides the headers, linker symlink, and pkg-config metadata
  for the AudioReach operating-system abstraction library.
-
-Package: libar-spfhdrs1
-Architecture: arm64
-Multi-Arch: same
-Section: libs
-Depends: ${misc:Depends}
-Description: AudioReach service framework header compatibility library
- This package provides the AudioReach service framework header compatibility
- shared library.
-
-Package: libar-spfhdrs-dev
-Architecture: arm64
-Section: libdevel
-Depends: libar-spfhdrs1 (= ${binary:Version}),
- libar-osal-dev (= ${binary:Version}),
- ${misc:Depends}
-Description: AudioReach service framework header development files
- This package provides the service framework headers, linker symlink, and
- pkg-config metadata.
 
 Package: libar-util1
 Architecture: arm64
