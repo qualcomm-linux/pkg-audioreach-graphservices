@@ -6,7 +6,7 @@ set -e
 MULTIARCH=$(dpkg-architecture -qDEB_HOST_MULTIARCH)
 LIBDIR="/usr/lib/$MULTIARCH"
 
-LIBS="libar-acdb libar-ats libar-gpr libar-gsl libar-osal libar-spfhdrs libar-util"
+LIBS="libar-acdb libar-ats libar-gpr libar-gsl libar-osal libar-util"
 
 fail=0
 

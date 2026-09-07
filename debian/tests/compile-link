@@ -74,7 +74,6 @@ int main(void)
 EOF
 
 spf_cflags=$(pkg-config --cflags spf)
-spf_libs=$(pkg-config --libs spf)
 # shellcheck disable=SC2086
 if gcc $spf_cflags -o test-spf test-spf.c $spf_libs; then
 	echo "PASS: spf headers compiled and linked"
