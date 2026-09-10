@@ -1,0 +1,451 @@
+From: =?utf-8?q?Lukas_M=C3=A4rdian?= <lukas.maerdian@oss.qualcomm.com>
+Date: Tue, 8 Sep 2026 16:27:38 +0200
+Subject: build: rename shared libraries to libaudioreach
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+Rename Autotools and Android shared-library targets from libar-* to
+libaudioreach-* and update all internal dependencies and ABI-check paths.
+
+Keep the pkg-config package names and filenames stable while updating their
+Libs entries, so pkg-config consumers continue to resolve the libraries
+after the rename.
+
+Origin: backport, https://github.com/AudioReach/audioreach-graphservices/pull/116
+Fixes: https://github.com/AudioReach/audioreach-graphservices/issues/110
+Signed-off-by: Lukas Märdian <lukas.maerdian@oss.qualcomm.com>
+---
+ acdb/Android.mk           |  8 ++++----
+ acdb/Makefile.am          | 12 ++++++------
+ acdb/acdb.pc.in           |  2 +-
+ acdb/ats/Makefile.am      | 32 ++++++++++++++++----------------
+ acdb/ats/ats.pc.in        |  2 +-
+ ar_osal/Makefile.am       | 22 +++++++++++-----------
+ ar_osal/ar_osal.pc.in     |  2 +-
+ ar_util/Makefile.am       | 12 ++++++------
+ ar_util/ar_util.pc.in     |  2 +-
+ gpr/Android.mk            |  2 +-
+ gpr/Makefile.am           | 17 ++++++++---------
+ gpr/gpr.pc.in             |  2 +-
+ gsl/Android.mk            |  6 +++---
+ gsl/Makefile.am           | 16 ++++++++--------
+ gsl/gsl.pc.in             |  2 +-
+ public_headers/config.yml | 10 +++++-----
+ spf/Makefile.am           | 10 +++++-----
+ spf/spf.pc.in             |  2 +-
+ 18 files changed, 80 insertions(+), 81 deletions(-)
+
+diff --git a/acdb/Android.mk b/acdb/Android.mk
+index 896f95b..d1530cd 100644
+--- a/acdb/Android.mk
++++ b/acdb/Android.mk
+@@ -8,7 +8,7 @@ include $(CLEAR_VARS)
+ acdb-def += -D_ANDROID_
+ 
+ #----------------------------------------------------------------------------
+-#             Make the Shared library (libar-acdb)
++#             Make the Shared library (libaudioreach-acdb)
+ #----------------------------------------------------------------------------
+ 
+ #LOCAL_C_INCLUDES := $(LOCAL_PATH)/inc
+@@ -32,7 +32,7 @@ LOCAL_SRC_FILES := \
+     src/acdb_heap.c\
+     src/acdb_context_mgr.c
+ 
+-LOCAL_MODULE := libar-acdb
++LOCAL_MODULE := libaudioreach-acdb
+ LOCAL_MODULE_OWNER := qti
+ LOCAL_MODULE_TAGS := optional
+ LOCAL_VENDOR_MODULE := true
+@@ -126,8 +126,8 @@ LOCAL_SHARED_LIBRARIES := \
+     libutils\
+     libcutils \
+     libdiag \
+-    libar-gsl\
+-    libar-acdb
++    libaudioreach-gsl\
++    libaudioreach-acdb
+ 
+ LOCAL_EXPORT_C_INCLUDE_DIRS := $(LOCAL_PATH)/ats/api
+ LOCAL_EXPORT_C_INCLUDE_DIRS += $(LOCAL_PATH)/ats/inc
+diff --git a/acdb/Makefile.am b/acdb/Makefile.am
+index 32595ad..157f137 100644
+--- a/acdb/Makefile.am
++++ b/acdb/Makefile.am
+@@ -43,9 +43,9 @@ acdb_c_sources = ./src/acdb.c \
+ lib_includedir = $(includedir)
+ lib_include_HEADERS = $(acdb_sources)
+ 
+-lib_LTLIBRARIES = libar-acdb.la
+-libar_acdb_la_CC = @CC@
+-libar_acdb_la_LIBADD = -lar-osal -L$(top_builddir)/ar_osal
+-libar_acdb_la_SOURCES = $(acdb_c_sources)
+-libar_acdb_la_CFLAGS = $(AM_CFLAGS)
+-libar_acdb_la_LDFLAGS = -shared -version-number @LT_VERSION_NUMBER@
++lib_LTLIBRARIES = libaudioreach-acdb.la
++libaudioreach_acdb_la_CC = @CC@
++libaudioreach_acdb_la_LIBADD = -laudioreach-osal -L$(top_builddir)/ar_osal
++libaudioreach_acdb_la_SOURCES = $(acdb_c_sources)
++libaudioreach_acdb_la_CFLAGS = $(AM_CFLAGS)
++libaudioreach_acdb_la_LDFLAGS = -shared -version-number @LT_VERSION_NUMBER@
+diff --git a/acdb/acdb.pc.in b/acdb/acdb.pc.in
+index 6898b4f..f0d2df3 100644
+--- a/acdb/acdb.pc.in
++++ b/acdb/acdb.pc.in
+@@ -6,5 +6,5 @@ includedir=@includedir@
+ Name: acdb
+ Description: acdb library
+ Version: @LT_VERSION@
+-Libs: -L${libdir} -lar-acdb
++Libs: -L${libdir} -laudioreach-acdb
+ Cflags: -I${includedir}
+diff --git a/acdb/ats/Makefile.am b/acdb/ats/Makefile.am
+index 5353c71..b809938 100644
+--- a/acdb/ats/Makefile.am
++++ b/acdb/ats/Makefile.am
+@@ -65,13 +65,13 @@ lib_includedir = $(includedir)
+ lib_include_HEADERS = $(ats_headers)
+ requiredlibs = -lrt
+ 
+-lib_LTLIBRARIES = libar-ats.la
+-libar_ats_la_CC = @CC@
+-libar_ats_la_LIBADD = $(top_builddir)/ar_osal/libar-osal.la
+-libar_ats_la_LIBADD += $(top_builddir)/acdb/libar-acdb.la
+-libar_ats_la_LIBADD += $(top_builddir)/gsl/libar-gsl.la
++lib_LTLIBRARIES = libaudioreach-ats.la
++libaudioreach_ats_la_CC = @CC@
++libaudioreach_ats_la_LIBADD = $(top_builddir)/ar_osal/libaudioreach-osal.la
++libaudioreach_ats_la_LIBADD += $(top_builddir)/acdb/libaudioreach-acdb.la
++libaudioreach_ats_la_LIBADD += $(top_builddir)/gsl/libaudioreach-gsl.la
+ if CUTILS_SUPPORTED
+-libar_ats_la_LIBADD += -lcutils
++libaudioreach_ats_la_LIBADD += -lcutils
+ AM_CFLAGS += -DAR_ATS_USE_CUTILS
+ endif
+ 
+@@ -82,23 +82,23 @@ else
+ AM_CFLAGS += @DIAG_CFLAGS@
+ AM_CPPFLAGS += -DFEATURE_LE_DIAG
+ requiredlibs += @DIAG_LIBS@
+-libar_ats_la_LIBADD += @DIAG_LIBS@
++libaudioreach_ats_la_LIBADD += @DIAG_LIBS@
+ endif
+ 
+-libar_ats_la_SOURCES = $(ats_c_sources)
+-libar_ats_la_CFLAGS = $(AM_CFLAGS)
+-libar_ats_la_CPPFLAGS = $(AM_CPPFLAGS)
++libaudioreach_ats_la_SOURCES = $(ats_c_sources)
++libaudioreach_ats_la_CFLAGS = $(AM_CFLAGS)
++libaudioreach_ats_la_CPPFLAGS = $(AM_CPPFLAGS)
+ if USES_ATS_TRANSPORT_TCPIP
+-libar_ats_la_CFLAGS += -DATS_TRANSPORT_TCPIP
+-libar_ats_la_CPPFLAGS += -DATS_TRANSPORT_TCPIP
++libaudioreach_ats_la_CFLAGS += -DATS_TRANSPORT_TCPIP
++libaudioreach_ats_la_CPPFLAGS += -DATS_TRANSPORT_TCPIP
+ endif
+ 
+ if USES_ATS_DATA_LOGGING
+-libar_ats_la_CFLAGS += -DATS_DATA_LOGGING
+-libar_ats_la_CPPFLAGS += -DATS_DATA_LOGGING
++libaudioreach_ats_la_CFLAGS += -DATS_DATA_LOGGING
++libaudioreach_ats_la_CPPFLAGS += -DATS_DATA_LOGGING
+ endif
+ 
+-libar_ats_la_LDFLAGS = -shared -version-number @LT_VERSION_NUMBER@
++libaudioreach_ats_la_LDFLAGS = -shared -version-number @LT_VERSION_NUMBER@
+ 
+ AM_CPPFLAGS += -DSOCK_PATH='"/usr/bin/gateway/ats_sockets"' \
+         -DSOCK_PATH_SERVER='"/usr/bin/gateway/ats_sockets/unix_sock.server"' \
+@@ -123,7 +123,7 @@ gateway_sources = ./transports/tcpip_gateway/src/tcpip_gateway_main.cpp \
+ bin_PROGRAMS = ats_gateway
+ ats_gateway_CC = @CC@
+ ats_gateway_SOURCES = $(gateway_sources)
+-ats_gateway_LDADD = $(top_builddir)/ar_osal/libar-osal.la
++ats_gateway_LDADD = $(top_builddir)/ar_osal/libaudioreach-osal.la
+ ats_gateway_CPPFLAGS = $(AM_CPPFLAGS)
+ 
+ if USES_ATS_DATA_LOGGING
+diff --git a/acdb/ats/ats.pc.in b/acdb/ats/ats.pc.in
+index 840d99f..a8e8158 100644
+--- a/acdb/ats/ats.pc.in
++++ b/acdb/ats/ats.pc.in
+@@ -6,5 +6,5 @@ includedir=@includedir@
+ Name: ats
+ Description: ats library
+ Version: @LT_VERSION@
+-Libs: -L${libdir} -lar-ats
++Libs: -L${libdir} -laudioreach-ats
+ Cflags: -I${includedir}
+diff --git a/ar_osal/Makefile.am b/ar_osal/Makefile.am
+index 02de8e8..92a5f1d 100644
+--- a/ar_osal/Makefile.am
++++ b/ar_osal/Makefile.am
+@@ -74,10 +74,10 @@ if KERNEL_HEADER
+ AM_CFLAGS += -DMSM_AUDIO_CUSTOM_STACK
+ endif
+ 
+-libar_osal_la_LIBADD = -lrt -lpthread
++libaudioreach_osal_la_LIBADD = -lrt -lpthread
+ 
+ if CUTILS_SUPPORTED
+-libar_osal_la_LIBADD += -lcutils -llog
++libaudioreach_osal_la_LIBADD += -lcutils -llog
+ AM_CFLAGS += -DAR_OSAL_USE_CUTILS
+ endif
+ 
+@@ -86,14 +86,14 @@ AM_CFLAGS += -DION_DRIVER_UNSUPPORTED
+ endif
+ 
+ if USE_GLIB
+-libar_osal_la_LIBADD += -lglib-2.0
++libaudioreach_osal_la_LIBADD += -lglib-2.0
+ AM_CFLAGS += $(GLIB_CFLAGS) -D_GNU_SOURCE -include glib.h
+ endif
+ 
+ if USE_DUMMY_DIAG
+ #dummy diag, do not link real diag libs
+ else
+-libar_osal_la_LIBADD += -ldiag
++libaudioreach_osal_la_LIBADD += -ldiag
+ endif
+ 
+ if USE_G_STR_FUNC
+@@ -102,14 +102,14 @@ endif
+ 
+ lib_includedir = $(includedir)
+ lib_include_HEADERS = $(osal_sources)
+-lib_LTLIBRARIES = libar-osal.la
+-libar_osal_la_CC = @CC@
+-libar_osal_la_SOURCES = $(osal_c_sources)
+-libar_osal_la_CFLAGS = $(AM_CFLAGS) @DIAG_CFLAGS@
++lib_LTLIBRARIES = libaudioreach-osal.la
++libaudioreach_osal_la_CC = @CC@
++libaudioreach_osal_la_SOURCES = $(osal_c_sources)
++libaudioreach_osal_la_CFLAGS = $(AM_CFLAGS) @DIAG_CFLAGS@
+ 
+ if LIBION_SUPPORTED
+-libar_osal_la_LIBADD += -lion
+-libar_osal_la_CFLAGS += @LIBION_CFLAGS@
++libaudioreach_osal_la_LIBADD += -lion
++libaudioreach_osal_la_CFLAGS += @LIBION_CFLAGS@
+ endif
+ 
+-libar_osal_la_LDFLAGS = -shared -version-number @LT_VERSION_NUMBER@
++libaudioreach_osal_la_LDFLAGS = -shared -version-number @LT_VERSION_NUMBER@
+diff --git a/ar_osal/ar_osal.pc.in b/ar_osal/ar_osal.pc.in
+index 52be5fd..cb9b71f 100644
+--- a/ar_osal/ar_osal.pc.in
++++ b/ar_osal/ar_osal.pc.in
+@@ -6,5 +6,5 @@ includedir=@includedir@
+ Name: ar_osal
+ Description: ar osal library
+ Version: @LT_VERSION@
+-Libs: -L${libdir} -lar-osal
++Libs: -L${libdir} -laudioreach-osal
+ Cflags: -I${includedir}
+diff --git a/ar_util/Makefile.am b/ar_util/Makefile.am
+index 3b81428..f4c7553 100644
+--- a/ar_util/Makefile.am
++++ b/ar_util/Makefile.am
+@@ -19,9 +19,9 @@ util_c_sources = src/ar_util_data_log.c \
+                  src/ar_util_err_detection.c \
+                  src/ar_util_list.c
+ 
+-lib_LTLIBRARIES = libar-util.la
+-libar_util_la_CC = @CC@
+-libar_util_la_SOURCES = $(util_c_sources)
+-libar_util_la_CFLAGS = $(AM_CFLAGS)
+-libar_util_la_LIBADD = $(top_builddir)/ar_osal/libar-osal.la
+-libar_util_la_LDFLAGS = -shared -version-number @LT_VERSION_NUMBER@
++lib_LTLIBRARIES = libaudioreach-util.la
++libaudioreach_util_la_CC = @CC@
++libaudioreach_util_la_SOURCES = $(util_c_sources)
++libaudioreach_util_la_CFLAGS = $(AM_CFLAGS)
++libaudioreach_util_la_LIBADD = $(top_builddir)/ar_osal/libaudioreach-osal.la
++libaudioreach_util_la_LDFLAGS = -shared -version-number @LT_VERSION_NUMBER@
+diff --git a/ar_util/ar_util.pc.in b/ar_util/ar_util.pc.in
+index 93ed5ce..88f6336 100644
+--- a/ar_util/ar_util.pc.in
++++ b/ar_util/ar_util.pc.in
+@@ -6,5 +6,5 @@ includedir=@includedir@
+ Name: ar_util
+ Description: ar_util library
+ Version: @LT_VERSION@
+-Libs: -L${libdir} -lar-util
++Libs: -L${libdir} -laudioreach-util
+ Cflags: -I${includedir}
+diff --git a/gpr/Android.mk b/gpr/Android.mk
+index f5ab35f..1415a44 100644
+--- a/gpr/Android.mk
++++ b/gpr/Android.mk
+@@ -1,7 +1,7 @@
+ LOCAL_PATH := $(call my-dir)
+ include $(CLEAR_VARS)
+ 
+-LOCAL_MODULE := libar-gpr
++LOCAL_MODULE := libaudioreach-gpr
+ LOCAL_MODULE_OWNER := qti
+ LOCAL_MODULE_TAGS := optional
+ LOCAL_VENDOR_MODULE := true
+diff --git a/gpr/Makefile.am b/gpr/Makefile.am
+index c586007..9cb6ba4 100644
+--- a/gpr/Makefile.am
++++ b/gpr/Makefile.am
+@@ -55,11 +55,11 @@ gpr_c_sources =  ./core/src/gpr_drv.c \
+ lib_includedir = $(includedir)
+ lib_include_HEADERS = $(gpr_sources)
+ 
+-lib_LTLIBRARIES = libar-gpr.la
+-libar_gpr_la_CC = @CC@
+-libar_gpr_la_LIBADD = -lpthread $(top_builddir)/ar_osal/libar-osal.la
++lib_LTLIBRARIES = libaudioreach-gpr.la
++libaudioreach_gpr_la_CC = @CC@
++libaudioreach_gpr_la_LIBADD = -lpthread $(top_builddir)/ar_osal/libaudioreach-osal.la
+ if USE_GLIB
+-libar_gpr_la_LIBADD += -lglib-2.0
++libaudioreach_gpr_la_LIBADD += -lglib-2.0
+ AM_CFLAGS += $(GLIB_CFLAGS) -include glib.h
+ endif
+ 
+@@ -68,7 +68,7 @@ AM_CFLAGS += -Dstrlcpy=g_strlcpy
+ endif
+ 
+ if CUTILS_SUPPORTED
+-libar_gpr_la_LIBADD += -lcutils
++libaudioreach_gpr_la_LIBADD += -lcutils
+ AM_CFLAGS += -DGPR_USE_CUTILS
+ endif
+ 
+@@ -76,7 +76,6 @@ if USE_ARE_ON_APPS
+ AM_CFLAGS += -DARE_ON_APPS
+ endif
+ 
+-libar_gpr_la_SOURCES = $(gpr_c_sources)
+-libar_gpr_la_CFLAGS = $(AM_CFLAGS)
+-libar_gpr_la_LDFLAGS = -shared -version-number @LT_VERSION_NUMBER@
+-
++libaudioreach_gpr_la_SOURCES = $(gpr_c_sources)
++libaudioreach_gpr_la_CFLAGS = $(AM_CFLAGS)
++libaudioreach_gpr_la_LDFLAGS = -shared -version-number @LT_VERSION_NUMBER@
+diff --git a/gpr/gpr.pc.in b/gpr/gpr.pc.in
+index 9b0ccd2..448f8f6 100644
+--- a/gpr/gpr.pc.in
++++ b/gpr/gpr.pc.in
+@@ -6,5 +6,5 @@ includedir=@includedir@
+ Name: gpr
+ Description: gpr library
+ Version: @LT_VERSION@
+-Libs: -L${libdir} -lar-gpr
++Libs: -L${libdir} -laudioreach-gpr
+ Cflags: -I${includedir}
+diff --git a/gsl/Android.mk b/gsl/Android.mk
+index 59b7d5d..fd7f14d 100644
+--- a/gsl/Android.mk
++++ b/gsl/Android.mk
+@@ -1,7 +1,7 @@
+ LOCAL_PATH := $(call my-dir)
+ include $(CLEAR_VARS)
+ 
+-LOCAL_MODULE := libar-gsl
++LOCAL_MODULE := libaudioreach-gsl
+ LOCAL_MODULE_OWNER := qti
+ LOCAL_MODULE_TAGS := optional
+ LOCAL_VENDOR_MODULE := true
+@@ -32,9 +32,9 @@ LOCAL_SRC_FILES := src/gsl_main.c \
+ LOCAL_HEADER_LIBRARIES := libspf-headers
+ LOCAL_SHARED_LIBRARIES := \
+     liblx-osal\
+-    libar-acdb\
++    libaudioreach-acdb\
+     liblx-ar_util\
+-    libar-gpr
++    libaudioreach-gpr
+ 
+ LOCAL_C_INCLUDES := $(LOCAL_PATH)/api\
+     $(LOCAL_PATH)/inc\
+diff --git a/gsl/Makefile.am b/gsl/Makefile.am
+index d4dd1a9..0ed3169 100644
+--- a/gsl/Makefile.am
++++ b/gsl/Makefile.am
+@@ -58,14 +58,14 @@ gsl_c_sources = ./src/gsl_graph.c \
+ lib_includedir = $(includedir)
+ lib_include_HEADERS = $(gsl_sources)
+ 
+-lib_LTLIBRARIES = libar-gsl.la
+-libar_gsl_la_CC = @CC@
+-libar_gsl_la_LIBADD = $(top_builddir)/acdb/libar-acdb.la $(top_builddir)/ar_osal/libar-osal.la $(top_builddir)/ar_util/libar-util.la $(top_builddir)/spf/libar-spfhdrs.la $(top_builddir)/gpr/libar-gpr.la
+-libar_gsl_la_SOURCES = $(gsl_c_sources)
+-libar_gsl_la_CFLAGS = $(AM_CFLAGS)
+-libar_gsl_la_LDFLAGS = -shared -version-number @LT_VERSION_NUMBER@
++lib_LTLIBRARIES = libaudioreach-gsl.la
++libaudioreach_gsl_la_CC = @CC@
++libaudioreach_gsl_la_LIBADD = $(top_builddir)/acdb/libaudioreach-acdb.la $(top_builddir)/ar_osal/libaudioreach-osal.la $(top_builddir)/ar_util/libaudioreach-util.la $(top_builddir)/spf/libaudioreach-spfhdrs.la $(top_builddir)/gpr/libaudioreach-gpr.la
++libaudioreach_gsl_la_SOURCES = $(gsl_c_sources)
++libaudioreach_gsl_la_CFLAGS = $(AM_CFLAGS)
++libaudioreach_gsl_la_LDFLAGS = -shared -version-number @LT_VERSION_NUMBER@
+ 
+ if USES_ATS_DATA_LOGGING
+-libar_gsl_la_CFLAGS += -DATS_DATA_LOGGING
+-libar_gsl_la_CPPFLAGS = -DATS_DATA_LOGGING
++libaudioreach_gsl_la_CFLAGS += -DATS_DATA_LOGGING
++libaudioreach_gsl_la_CPPFLAGS = -DATS_DATA_LOGGING
+ endif
+diff --git a/gsl/gsl.pc.in b/gsl/gsl.pc.in
+index b6313b8..b9eb311 100644
+--- a/gsl/gsl.pc.in
++++ b/gsl/gsl.pc.in
+@@ -6,5 +6,5 @@ includedir=@includedir@
+ Name: gsl
+ Description: gsl library
+ Version: @LT_VERSION@
+-Libs: -L${libdir} -lar-gsl
++Libs: -L${libdir} -laudioreach-gsl
+ Cflags: -I${includedir}
+diff --git a/public_headers/config.yml b/public_headers/config.yml
+index daf616d..bee404f 100644
+--- a/public_headers/config.yml
++++ b/public_headers/config.yml
+@@ -21,8 +21,8 @@ branches:
+           - spf/api/ar_utils/*.h
+           - spf/api/ar_utils/generic/*.h
+ abi_checks:
+-  - path: build/usr/lib/libar-gsl.so
+-  - path: build/usr/lib/libar-gpr.so
+-  - path: build/usr/lib/libar-util.so
+-  - path: build/usr/lib/libar-osal.so
+-  - path: build/usr/lib/libar-acdb.so
++  - path: build/usr/lib/libaudioreach-gsl.so
++  - path: build/usr/lib/libaudioreach-gpr.so
++  - path: build/usr/lib/libaudioreach-util.so
++  - path: build/usr/lib/libaudioreach-osal.so
++  - path: build/usr/lib/libaudioreach-acdb.so
+diff --git a/spf/Makefile.am b/spf/Makefile.am
+index 5b51abf..8c2a664 100644
+--- a/spf/Makefile.am
++++ b/spf/Makefile.am
+@@ -156,8 +156,8 @@ asps_includedir = $(includedir)/spf/asps
+ asps_include_HEADERS = $(asps_sources)
+ 
+ #LIBRARY for LE apps
+-lib_LTLIBRARIES = libar-spfhdrs.la
+-libar_spfhdrs_la_CC = @CC@
+-libar_spfhdrs_la_SOURCES = $(spf_sources) $(asps_sources)
+-libar_spfhdrs_la_CFLAGS = $(AM_CFLAGS)
+-libar_spfhdrs_la_LDFLAGS = -shared -version-number @LT_VERSION_NUMBER@
++lib_LTLIBRARIES = libaudioreach-spfhdrs.la
++libaudioreach_spfhdrs_la_CC = @CC@
++libaudioreach_spfhdrs_la_SOURCES = $(spf_sources) $(asps_sources)
++libaudioreach_spfhdrs_la_CFLAGS = $(AM_CFLAGS)
++libaudioreach_spfhdrs_la_LDFLAGS = -shared -version-number @LT_VERSION_NUMBER@
+diff --git a/spf/spf.pc.in b/spf/spf.pc.in
+index e999317..33904ee 100644
+--- a/spf/spf.pc.in
++++ b/spf/spf.pc.in
+@@ -6,5 +6,5 @@ includedir=@includedir@
+ Name: spf
+ Description: spf library
+ Version: @LT_VERSION@
+-Libs: -L${libdir} -lar-spfhdrs
++Libs: -L${libdir} -laudioreach-spfhdrs
+ Cflags: -I${includedir}/spf -I${includedir}/spf/asps

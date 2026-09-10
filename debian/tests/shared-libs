@@ -6,7 +6,7 @@ set -e
 MULTIARCH=$(dpkg-architecture -qDEB_HOST_MULTIARCH)
 LIBDIR="/usr/lib/$MULTIARCH"
 
-LIBS="libar-acdb libar-ats libar-gpr libar-gsl libar-osal libar-util"
+LIBS="libaudioreach-acdb libaudioreach-ats libaudioreach-gpr libaudioreach-gsl libaudioreach-osal libaudioreach-util"
 
 fail=0
 
@@ -29,7 +29,7 @@ for lib in $LIBS; do
 	fi
 
 	# Confirm the SONAME matches the package name, which is what makes the
-	# libar-*1 package split meaningful.
+	# libaudioreach-*1 package split meaningful.
 	soname=$(objdump -p "$so" | awk '/SONAME/ { print $2 }')
 	echo "soname: $soname"
 	if [ "$soname" != "$lib.so.1" ]; then

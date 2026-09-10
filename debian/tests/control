@@ -1,20 +1,20 @@
 Tests: compile-link
 Depends: audioreach-spf-dev,
- libar-acdb-dev,
- libar-ats-dev,
- libar-gpr-dev,
- libar-gsl-dev,
- libar-osal-dev,
- libar-util-dev,
+ libaudioreach-acdb-dev,
+ libaudioreach-ats-dev,
+ libaudioreach-gpr-dev,
+ libaudioreach-gsl-dev,
+ libaudioreach-osal-dev,
+ libaudioreach-util-dev,
  build-essential,
  pkgconf
 
 Tests: shared-libs
-Depends: libar-acdb1,
- libar-ats1,
- libar-gpr1,
- libar-gsl1,
- libar-osal1,
- libar-util1,
+Depends: libaudioreach-acdb1,
+ libaudioreach-ats1,
+ libaudioreach-gpr1,
+ libaudioreach-gsl1,
+ libaudioreach-osal1,
+ libaudioreach-util1,
  binutils
 Restrictions: superficial

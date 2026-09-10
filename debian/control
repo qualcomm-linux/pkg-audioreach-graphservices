@@ -16,13 +16,13 @@ Vcs-Browser: https://github.com/qualcomm-linux/pkg-audioreach-graphservices
 Package: audioreach-spf-dev
 Architecture: arm64
 Section: libdevel
-Depends: libar-osal-dev (= ${binary:Version}),
+Depends: libaudioreach-osal-dev (= ${binary:Version}),
  ${misc:Depends}
 Description: AudioReach service framework header development files
  This package provides the service framework headers, and pkg-config
  pkg-config metadata.
 
-Package: libar-acdb1
+Package: libaudioreach-acdb1
 Architecture: arm64
 Multi-Arch: same
 Section: libs
@@ -31,17 +31,17 @@ Description: AudioReach calibration database runtime library
  This library loads and queries calibration data used by AudioReach audio
  graphs.
 
-Package: libar-acdb-dev
+Package: libaudioreach-acdb-dev
 Architecture: arm64
 Section: libdevel
-Depends: libar-acdb1 (= ${binary:Version}),
- libar-osal-dev (= ${binary:Version}),
+Depends: libaudioreach-acdb1 (= ${binary:Version}),
+ libaudioreach-osal-dev (= ${binary:Version}),
  ${misc:Depends}
 Description: AudioReach calibration database development files
  This package provides the headers, linker symlink, and pkg-config metadata
  for the AudioReach calibration database library.
 
-Package: libar-ats1
+Package: libaudioreach-ats1
 Architecture: arm64
 Multi-Arch: same
 Section: libs
@@ -51,17 +51,17 @@ Description: AudioReach tuning service runtime library
  This library provides tuning commands and calibration transport support for
  AudioReach clients.
 
-Package: libar-ats-dev
+Package: libaudioreach-ats-dev
 Architecture: arm64
 Section: libdevel
-Depends: libar-ats1 (= ${binary:Version}),
- libar-osal-dev (= ${binary:Version}),
+Depends: libaudioreach-ats1 (= ${binary:Version}),
+ libaudioreach-osal-dev (= ${binary:Version}),
  ${misc:Depends}
 Description: AudioReach tuning service development files
  This package provides the header, linker symlink, and pkg-config metadata
  for the AudioReach tuning service library.
 
-Package: libar-gpr1
+Package: libaudioreach-gpr1
 Architecture: arm64
 Multi-Arch: same
 Section: libs
@@ -70,17 +70,17 @@ Description: AudioReach generic packet router runtime library
  This library implements packet routing between AudioReach processing
  domains.
 
-Package: libar-gpr-dev
+Package: libaudioreach-gpr-dev
 Architecture: arm64
 Section: libdevel
-Depends: libar-gpr1 (= ${binary:Version}),
- libar-osal-dev (= ${binary:Version}),
+Depends: libaudioreach-gpr1 (= ${binary:Version}),
+ libaudioreach-osal-dev (= ${binary:Version}),
  ${misc:Depends}
 Description: AudioReach generic packet router development files
  This package provides the headers, linker symlink, and pkg-config metadata
  for the AudioReach generic packet router library.
 
-Package: libar-gsl1
+Package: libaudioreach-gsl1
 Architecture: arm64
 Multi-Arch: same
 Section: libs
@@ -96,21 +96,21 @@ Description: AudioReach graph service runtime library
  subsystem restart events that report which graph handles a client has to
  close and reopen.
 
-Package: libar-gsl-dev
+Package: libaudioreach-gsl-dev
 Architecture: arm64
 Section: libdevel
 Depends: audioreach-spf-dev (= ${binary:Version}),
- libar-gsl1 (= ${binary:Version}),
- libar-acdb-dev (= ${binary:Version}),
- libar-gpr-dev (= ${binary:Version}),
- libar-osal-dev (= ${binary:Version}),
- libar-util-dev (= ${binary:Version}),
+ libaudioreach-gsl1 (= ${binary:Version}),
+ libaudioreach-acdb-dev (= ${binary:Version}),
+ libaudioreach-gpr-dev (= ${binary:Version}),
+ libaudioreach-osal-dev (= ${binary:Version}),
+ libaudioreach-util-dev (= ${binary:Version}),
  ${misc:Depends}
 Description: AudioReach graph service development files
  This package provides the headers, linker symlink, and pkg-config metadata
  for the AudioReach graph service library.
 
-Package: libar-osal1
+Package: libaudioreach-osal1
 Architecture: arm64
 Multi-Arch: same
 Section: libs
@@ -120,15 +120,15 @@ Description: AudioReach operating-system abstraction runtime library
  This package provides the AudioReach operating-system abstraction shared
  library.
 
-Package: libar-osal-dev
+Package: libaudioreach-osal-dev
 Architecture: arm64
 Section: libdevel
-Depends: libar-osal1 (= ${binary:Version}), ${misc:Depends}
+Depends: libaudioreach-osal1 (= ${binary:Version}), ${misc:Depends}
 Description: AudioReach operating-system abstraction development files
  This package provides the headers, linker symlink, and pkg-config metadata
  for the AudioReach operating-system abstraction library.
 
-Package: libar-util1
+Package: libaudioreach-util1
 Architecture: arm64
 Multi-Arch: same
 Section: libs
@@ -137,11 +137,11 @@ Description: AudioReach utility runtime library
  This library provides common logging, list, and error-detection helpers used
  by AudioReach components.
 
-Package: libar-util-dev
+Package: libaudioreach-util-dev
 Architecture: arm64
 Section: libdevel
-Depends: libar-util1 (= ${binary:Version}),
- libar-osal-dev (= ${binary:Version}),
+Depends: libaudioreach-util1 (= ${binary:Version}),
+ libaudioreach-osal-dev (= ${binary:Version}),
  ${misc:Depends}
 Description: AudioReach utility development files
  This package provides the headers, linker symlink, and pkg-config metadata
