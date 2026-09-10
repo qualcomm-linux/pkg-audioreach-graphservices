@@ -1,3 +1,4 @@
 fix-shared-library-linkage.patch
 fix-ats-pc-include-path.patch
 0003-build-rename-shared-libraries-to-libaudioreach.patch
+0004-build-remove-empty-SPF-shared-library.patch

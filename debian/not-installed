@@ -1,4 +1,2 @@
 usr/bin/ats_gateway
 usr/lib/${DEB_HOST_MULTIARCH}/*.la
-# https://github.com/AudioReach/audioreach-graphservices/issues/104
-usr/lib/${DEB_HOST_MULTIARCH}/libar-spfhdrs.so*
