@@ -17,4 +17,4 @@ Depends: libaudioreach-acdb1,
  libaudioreach-osal1,
  libaudioreach-util1,
  binutils
-Restrictions: superficial
+Restrictions: superficial, allow-stderr
