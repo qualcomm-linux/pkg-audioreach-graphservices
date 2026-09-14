@@ -1,13 +1,19 @@
 audioreach-graphservices (1.0.0-0qli+staging4~) UNRELEASED; urgency=medium
 
   * d/p/fix-shared-library-linkage.patch: Update DEP-3 headers.
-  * d/watch: Fix typo.
   * d/control: build-dep on libdiag-dev from QLI overlay.
   * d/control: Drop transitional staging packages.
+  * d/patches,d/control: Rename libraries to libaudioreach-*.
+    - d/p/0003-build-rename-shared-libraries-to-libaudioreach.patch
   * d/control: Avoid empty libar-spfhdr-dev.so, introduce audioreach-spf-dev.
+  * d/patches: Drop empty libar-spfhdr.so.
+    - d/p/0004-build-remove-empty-SPF-shared-library.patch
   * d/tests: Adopt to audioreach-spf-dev.
+  * d/t/control: allow-stderr for shared-libs test.
+  * d/control: Wrap-and-sort.
+  * d/control: Section sound.
 
- -- Lukas Märdian <lukas.maerdian@oss.qualcomm.com>  Mon, 07 Sep 2026 15:52:11 +0200
+ -- Lukas Märdian <lukas.maerdian@oss.qualcomm.com>  Mon, 14 Sep 2026 09:37:41 +0200
 
 audioreach-graphservices (1.0.0-0qli+staging3) forky; urgency=medium
 
