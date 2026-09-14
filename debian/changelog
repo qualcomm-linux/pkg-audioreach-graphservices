@@ -1,5 +1,6 @@
-audioreach-graphservices (1.0.0-0qli+staging4~) UNRELEASED; urgency=medium
+audioreach-graphservices (1.0.0-0qli+staging4) forky; urgency=medium
 
+  [ Lukas Märdian ]
   * d/p/fix-shared-library-linkage.patch: Update DEP-3 headers.
   * d/control: build-dep on libdiag-dev from QLI overlay.
   * d/control: Drop transitional staging packages.
@@ -13,7 +14,7 @@ audioreach-graphservices (1.0.0-0qli+staging4~) UNRELEASED; urgency=medium
   * d/control: Wrap-and-sort.
   * d/control: Section sound.
 
- -- Lukas Märdian <lukas.maerdian@oss.qualcomm.com>  Mon, 14 Sep 2026 09:37:41 +0200
+ -- Debusine Action Bot <noreply@bot.invalid>  Mon, 14 Sep 2026 07:45:33 +0000
 
 audioreach-graphservices (1.0.0-0qli+staging3) forky; urgency=medium
 
