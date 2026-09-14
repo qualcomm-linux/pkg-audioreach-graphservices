@@ -1,0 +1,76 @@
+From: =?utf-8?q?Lukas_M=C3=A4rdian?= <lukas.maerdian@oss.qualcomm.com>
+Date: Tue, 8 Sep 2026 16:38:27 +0200
+Subject: build: remove empty SPF shared library
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+SPF contains only headers, so install them directly without generating the
+empty libaudioreach-spfhdrs shared object. Remove GSLs dependency on the
+target and make spf.pc header-only while retaining its pkg-config include
+flags.
+
+Origin: https://github.com/AudioReach/audioreach-graphservices/pull/116
+Fixes: https://github.com/AudioReach/audioreach-graphservices/issues/104
+Signed-off-by: Lukas Märdian <lukas.maerdian@oss.qualcomm.com>
+---
+ gsl/Makefile.am |  2 +-
+ spf/Makefile.am | 14 --------------
+ spf/spf.pc.in   |  3 +--
+ 3 files changed, 2 insertions(+), 17 deletions(-)
+
+diff --git a/gsl/Makefile.am b/gsl/Makefile.am
+index 0ed3169..ea6bc40 100644
+--- a/gsl/Makefile.am
++++ b/gsl/Makefile.am
+@@ -60,7 +60,7 @@ lib_include_HEADERS = $(gsl_sources)
+ 
+ lib_LTLIBRARIES = libaudioreach-gsl.la
+ libaudioreach_gsl_la_CC = @CC@
+-libaudioreach_gsl_la_LIBADD = $(top_builddir)/acdb/libaudioreach-acdb.la $(top_builddir)/ar_osal/libaudioreach-osal.la $(top_builddir)/ar_util/libaudioreach-util.la $(top_builddir)/spf/libaudioreach-spfhdrs.la $(top_builddir)/gpr/libaudioreach-gpr.la
++libaudioreach_gsl_la_LIBADD = $(top_builddir)/acdb/libaudioreach-acdb.la $(top_builddir)/ar_osal/libaudioreach-osal.la $(top_builddir)/ar_util/libaudioreach-util.la $(top_builddir)/gpr/libaudioreach-gpr.la
+ libaudioreach_gsl_la_SOURCES = $(gsl_c_sources)
+ libaudioreach_gsl_la_CFLAGS = $(AM_CFLAGS)
+ libaudioreach_gsl_la_LDFLAGS = -shared -version-number @LT_VERSION_NUMBER@
+diff --git a/spf/Makefile.am b/spf/Makefile.am
+index 8c2a664..ef7adef 100644
+--- a/spf/Makefile.am
++++ b/spf/Makefile.am
+@@ -2,13 +2,6 @@ pkgconfigdir = $(libdir)/pkgconfig
+ pkgconfig_DATA = spf.pc
+ EXTRA_DIST = $(pkgconfig_DATA)
+ 
+-AM_CFLAGS = -Wall -Werror
+-AM_CFLAGS += -I ./api
+-AM_CFLAGS += -I ./api/apm
+-AM_CFLAGS += -I ./api/ar_utils
+-AM_CFLAGS += -I ./api/modules
+-AM_CFLAGS += -I ./api/vcpm
+-
+ spf_sources = ./api/apm/apm_api.h \
+                 ./api/apm/apm_api_version.h \
+                 ./api/apm/apm_container_api.h \
+@@ -154,10 +147,3 @@ spf_include_HEADERS = $(spf_sources)
+ 
+ asps_includedir = $(includedir)/spf/asps
+ asps_include_HEADERS = $(asps_sources)
+-
+-#LIBRARY for LE apps
+-lib_LTLIBRARIES = libaudioreach-spfhdrs.la
+-libaudioreach_spfhdrs_la_CC = @CC@
+-libaudioreach_spfhdrs_la_SOURCES = $(spf_sources) $(asps_sources)
+-libaudioreach_spfhdrs_la_CFLAGS = $(AM_CFLAGS)
+-libaudioreach_spfhdrs_la_LDFLAGS = -shared -version-number @LT_VERSION_NUMBER@
+diff --git a/spf/spf.pc.in b/spf/spf.pc.in
+index 33904ee..512fb6d 100644
+--- a/spf/spf.pc.in
++++ b/spf/spf.pc.in
+@@ -4,7 +4,6 @@ libdir=@libdir@
+ includedir=@includedir@
+ 
+ Name: spf
+-Description: spf library
++Description: spf headers
+ Version: @LT_VERSION@
+-Libs: -L${libdir} -laudioreach-spfhdrs
+ Cflags: -I${includedir}/spf -I${includedir}/spf/asps

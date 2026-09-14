@@ -1,0 +1,15 @@
+Description: Fix bogus include path in ats.pc
+ The Cflags line used a backslash instead of a slash, expanding to the
+ non-existent path "-I/usr/include\ats".  The ats.h header is installed
+ directly into $(includedir), so no subdirectory is needed at all.
+Author: Lukas Märdian <lukas.maerdian@oss.qualcomm.com>
+Forwarded: https://github.com/AudioReach/audioreach-graphservices/issues/106
+Last-Update: 2026-09-01
+--- a/acdb/ats/ats.pc.in
++++ b/acdb/ats/ats.pc.in
+@@ -7,4 +7,4 @@ Name: ats
+ Description: ats library
+ Version: @LT_VERSION@
+ Libs: -L${libdir} -lar-ats
+-Cflags: -I${includedir}\ats
++Cflags: -I${includedir}

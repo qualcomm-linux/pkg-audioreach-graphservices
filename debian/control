@@ -1,38 +1,171 @@
 Source: audioreach-graphservices
-Section: misc
-Priority: optional
+Section: sound
 Maintainer: Radhika Garg <radhgarg@qti.qualcomm.com>
-Rules-Requires-Root: no
-Build-Depends: debhelper-compat (= 13),
- libglib2.0-0,
+Uploaders:
+ Lukas Märdian <lukas.maerdian@oss.qualcomm.com>,
+Build-Depends:
+ debhelper-compat (= 13),
+ audioreach-linux-dev,
+ libdiag-dev,
  libglib2.0-dev,
- pkg-config,
- qcom-libdiag,
- qcom-libdiag-dev,
- audioreach-kernel-dev
+ pkgconf,
 Standards-Version: 4.6.2
 Homepage: https://github.com/Audioreach/audioreach-graphservices
-Vcs-Git: https://github.com/qualcomm-linux/pkg-audioreach-graphservices -b debian/latest
+Vcs-Git: https://github.com/qualcomm-linux/pkg-audioreach-graphservices
 Vcs-Browser: https://github.com/qualcomm-linux/pkg-audioreach-graphservices
 
-Package: audioreach-graphservices
+Package: audioreach-spf-dev
 Architecture: arm64
-Section: libs
-Depends: ${misc:Depends}, qcom-diag-router, qcom-libdiag
-Description: AudioReach graph service libraries
- Provides cross-platform libraries for managing audio graphs
- in the AudioReach framework, including setup, control,
- data exchange, and calibration handling.
-
-Package: audioreach-graphservices-dev
-Architecture: arm64
-Description: AudioReach graphservices - development files
- AudioReach graph service libraries
- Provides cross-platform libraries for managing audio graphs
- in the AudioReach framework, including setup, control,
- data exchange, and calibration handling.
- .
- This package contains library headers for the shared libraries shipped in the
- audioreach-graphservices  package.
 Section: libdevel
-Depends: audioreach-graphservices (= ${binary:Version}), ${misc:Depends}
+Depends:
+ libaudioreach-osal-dev (= ${binary:Version}),
+ ${misc:Depends},
+Description: AudioReach service framework header development files
+ This package provides the service framework headers, and pkg-config
+ pkg-config metadata.
+
+Package: libaudioreach-acdb1
+Architecture: arm64
+Multi-Arch: same
+Section: libs
+Depends:
+ ${misc:Depends},
+ ${shlibs:Depends},
+Description: AudioReach calibration database runtime library
+ This library loads and queries calibration data used by AudioReach audio
+ graphs.
+
+Package: libaudioreach-acdb-dev
+Architecture: arm64
+Section: libdevel
+Depends:
+ libaudioreach-acdb1 (= ${binary:Version}),
+ libaudioreach-osal-dev (= ${binary:Version}),
+ ${misc:Depends},
+Description: AudioReach calibration database development files
+ This package provides the headers, linker symlink, and pkg-config metadata
+ for the AudioReach calibration database library.
+
+Package: libaudioreach-ats1
+Architecture: arm64
+Multi-Arch: same
+Section: libs
+Depends:
+ ${misc:Depends},
+ ${shlibs:Depends},
+Recommends:
+ qcom-diag-router,
+Description: AudioReach tuning service runtime library
+ This library provides tuning commands and calibration transport support for
+ AudioReach clients.
+
+Package: libaudioreach-ats-dev
+Architecture: arm64
+Section: libdevel
+Depends:
+ libaudioreach-ats1 (= ${binary:Version}),
+ libaudioreach-osal-dev (= ${binary:Version}),
+ ${misc:Depends},
+Description: AudioReach tuning service development files
+ This package provides the header, linker symlink, and pkg-config metadata
+ for the AudioReach tuning service library.
+
+Package: libaudioreach-gpr1
+Architecture: arm64
+Multi-Arch: same
+Section: libs
+Depends:
+ ${misc:Depends},
+ ${shlibs:Depends},
+Description: AudioReach generic packet router runtime library
+ This library implements packet routing between AudioReach processing
+ domains.
+
+Package: libaudioreach-gpr-dev
+Architecture: arm64
+Section: libdevel
+Depends:
+ libaudioreach-gpr1 (= ${binary:Version}),
+ libaudioreach-osal-dev (= ${binary:Version}),
+ ${misc:Depends},
+Description: AudioReach generic packet router development files
+ This package provides the headers, linker symlink, and pkg-config metadata
+ for the AudioReach generic packet router library.
+
+Package: libaudioreach-gsl1
+Architecture: arm64
+Multi-Arch: same
+Section: libs
+Depends:
+ ${misc:Depends},
+ ${shlibs:Depends},
+Description: AudioReach graph service runtime library
+ The graph service layer (GSL) is the interface through which clients drive
+ AudioReach audio use cases. It loads audio processing graphs onto the DSP,
+ each identified by a key vector, applies calibration data from the
+ calibration database, and carries audio samples between the client and the
+ loaded graph.
+ .
+ GSL also delivers asynchronous notifications to its clients, including
+ subsystem restart events that report which graph handles a client has to
+ close and reopen.
+
+Package: libaudioreach-gsl-dev
+Architecture: arm64
+Section: libdevel
+Depends:
+ audioreach-spf-dev (= ${binary:Version}),
+ libaudioreach-acdb-dev (= ${binary:Version}),
+ libaudioreach-gpr-dev (= ${binary:Version}),
+ libaudioreach-gsl1 (= ${binary:Version}),
+ libaudioreach-osal-dev (= ${binary:Version}),
+ libaudioreach-util-dev (= ${binary:Version}),
+ ${misc:Depends},
+Description: AudioReach graph service development files
+ This package provides the headers, linker symlink, and pkg-config metadata
+ for the AudioReach graph service library.
+
+Package: libaudioreach-osal1
+Architecture: arm64
+Multi-Arch: same
+Section: libs
+Depends:
+ ${misc:Depends},
+ ${shlibs:Depends},
+Suggests:
+ qcom-diag-router,
+Description: AudioReach operating-system abstraction runtime library
+ This package provides the AudioReach operating-system abstraction shared
+ library.
+
+Package: libaudioreach-osal-dev
+Architecture: arm64
+Section: libdevel
+Depends:
+ libaudioreach-osal1 (= ${binary:Version}),
+ ${misc:Depends},
+Description: AudioReach operating-system abstraction development files
+ This package provides the headers, linker symlink, and pkg-config metadata
+ for the AudioReach operating-system abstraction library.
+
+Package: libaudioreach-util1
+Architecture: arm64
+Multi-Arch: same
+Section: libs
+Depends:
+ ${misc:Depends},
+ ${shlibs:Depends},
+Description: AudioReach utility runtime library
+ This library provides common logging, list, and error-detection helpers used
+ by AudioReach components.
+
+Package: libaudioreach-util-dev
+Architecture: arm64
+Section: libdevel
+Depends:
+ libaudioreach-osal-dev (= ${binary:Version}),
+ libaudioreach-util1 (= ${binary:Version}),
+ ${misc:Depends},
+Description: AudioReach utility development files
+ This package provides the headers, linker symlink, and pkg-config metadata
+ for the AudioReach utility library.
