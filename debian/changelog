@@ -1,8 +1,9 @@
-audioreach-graphservices (1.0.0-0qli1~) UNRELEASED; urgency=medium
+audioreach-graphservices (1.0.0-0qli1) forky; urgency=medium
 
+  [ Lukas Märdian ]
   * Rebuild for QLI.
 
- -- Lukas Märdian <lukas.maerdian@oss.qualcomm.com>  Mon, 14 Sep 2026 09:52:00 +0200
+ -- Debusine Action Bot <noreply@bot.invalid>  Mon, 14 Sep 2026 07:53:48 +0000
 
 audioreach-graphservices (1.0.0-0qli+staging4) forky; urgency=medium
 
