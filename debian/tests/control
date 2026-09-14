@@ -1,20 +1,26 @@
-Tests: compile-link
-Depends: audioreach-spf-dev,
+Tests:
+ compile-link,
+Depends:
+ audioreach-spf-dev,
+ build-essential,
  libaudioreach-acdb-dev,
  libaudioreach-ats-dev,
  libaudioreach-gpr-dev,
  libaudioreach-gsl-dev,
  libaudioreach-osal-dev,
  libaudioreach-util-dev,
- build-essential,
- pkgconf
+ pkgconf,
 
-Tests: shared-libs
-Depends: libaudioreach-acdb1,
+Tests:
+ shared-libs,
+Depends:
+ binutils,
+ libaudioreach-acdb1,
  libaudioreach-ats1,
  libaudioreach-gpr1,
  libaudioreach-gsl1,
  libaudioreach-osal1,
  libaudioreach-util1,
- binutils
-Restrictions: superficial, allow-stderr
+Restrictions:
+ allow-stderr,
+ superficial,
