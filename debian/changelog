@@ -1,9 +1,9 @@
-audioreach-graphservices (1.0.0-0qli1~bpo13+1) trixie; urgency=medium
+audioreach-graphservices (1.0.0-0qli1~bpo13+1~) UNRELEASED; urgency=medium
 
-  [ Lukas Märdian ]
-  * Rebuild for trixie.
+  * Rebuild for trixie/QLI.
+  * d/gbp.conf: Update for QLI branch.
 
- -- Debusine Action Bot <noreply@bot.invalid>  Mon, 14 Sep 2026 08:54:26 +0000
+ -- Lukas Märdian <lukas.maerdian@oss.qualcomm.com>  Mon, 14 Sep 2026 11:02:18 +0200
 
 audioreach-graphservices (1.0.0-0qli1) forky; urgency=medium
 
