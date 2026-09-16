@@ -1,6 +1,7 @@
 audioreach-graphservices (1.0.0-0qli2~) UNRELEASED; urgency=medium
 
   * d/gbp.conf: Update for QLI branch.
+  * d/control: Drop stale qcom-diag-router runtime relationships.
 
  -- Lukas Märdian <lukas.maerdian@oss.qualcomm.com>  Mon, 14 Sep 2026 10:54:41 +0200
 
