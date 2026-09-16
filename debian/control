@@ -53,8 +53,6 @@ Section: libs
 Depends:
  ${misc:Depends},
  ${shlibs:Depends},
-Recommends:
- qcom-diag-router,
 Description: AudioReach tuning service runtime library
  This library provides tuning commands and calibration transport support for
  AudioReach clients.
@@ -132,8 +130,6 @@ Section: libs
 Depends:
  ${misc:Depends},
  ${shlibs:Depends},
-Suggests:
- qcom-diag-router,
 Description: AudioReach operating-system abstraction runtime library
  This package provides the AudioReach operating-system abstraction shared
  library.
