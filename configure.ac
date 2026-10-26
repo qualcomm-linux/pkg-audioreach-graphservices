@@ -7,7 +7,7 @@
 # Requires autoconf tool later than 2.61
 AC_PREREQ(2.69)
 
-AC_INIT([arosp],1.0.0)
+AC_INIT([arosp],1.0.2)
 # Does not strictly follow GNU Coding standards
 AM_INIT_AUTOMAKE([-Wall -Werror foreign subdir-objects])
 LT_INIT
@@ -18,7 +18,7 @@ AM_PROG_AR
 
 m4_define([LT_MAJOR], [1])
 m4_define([LT_MINOR], [0])
-m4_define([LT_PATCH], [0])
+m4_define([LT_PATCH], [2])
 
 AC_SUBST([LT_VERSION], LT_MAJOR.LT_MINOR.LT_PATCH)
 AC_SUBST([LT_VERSION_NUMBER], LT_MAJOR:LT_MINOR:LT_PATCH)
@@ -96,6 +96,12 @@ AC_ARG_WITH([audio_dma_support],
     [with_audio_dma_support=$withval],
     [with_audio_dma_support=no])
 AM_CONDITIONAL([AUDIO_DMA_SUPPORT], [test "x${with_audio_dma_support}" = "xyes"])
+
+AC_ARG_WITH([mdsp-proc],
+    AS_HELP_STRING([--with-mdsp-proc],[Enable MDSP processor support (default is no)]),
+    [with_mdsp_proc=$withval],
+    [with_mdsp_proc=no])
+AM_CONDITIONAL([MDSP_PROC], [test "x${with_mdsp_proc}" = "xyes"])
 
 AC_ARG_WITH([libdiag_headers],
     AS_HELP_STRING([--with-libdiag_headers],[use libdiag headers only (default is no)]),
